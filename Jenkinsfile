@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        registry = "dhivyadhub/pythondoc1" 
+        registry = "dhivyadhub/pydocker1" 
         registryCredential = 'dockerhub'
         dockerImage = ''    
     }
@@ -13,28 +13,25 @@ pipeline {
                  credentialsId: 'github_creds'
             }
         }
-        stage('Building our image') { 
-            steps { 
-                script { 
-                    dockerImage = docker.build registry + ":%BUILD_NUMBER%" 
-                }
-            } 
+        stage('Docker Build and Tag') {
+           steps {
+              
+                bat 'docker build -t pythontest:latest .' 
+                  bat 'docker tag pythontest dhivyadhub/pydocker1:latest'
+                  bat 'docker tag pythontest dhivyadhub/pydocker1:%BUILD_NUMBER%'
+               
+          }
         }
-        stage('Deploy our image') { 
-            steps { 
-                script { 
-                    docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.push() 
-                    }
-                } 
-            }
-        } 
-        stage('Cleaning up') { 
-            steps {
-
-                bat "docker rmi $registry:%BUILD_NUMBER%" 
-            }
-        } 
+     
+       stage('Publish image to Docker Hub') {
+          steps {
+        withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
+          bat  'docker tag pythontest dhivyadhub/pydocker1:latest'
+          bat  'docker tag pythontest dhivyadhub/pydocker1:%BUILD_NUMBER%' 
+        }
+                  
+         }
+     }
     }
 }    
     
