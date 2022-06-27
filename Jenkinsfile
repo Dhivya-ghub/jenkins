@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         registry = "dhivyadhub/pydocker1" 
-        registryCredential = 'dockerhub'
+        registryCredential = 'dockerHub'
         dockerImage = ''    
     }
     stages {
