@@ -20,20 +20,15 @@ pipeline {
             }  
          }
      
-       stage('DockerHub login') {
+       stage('DockerHub login and push the docker image') {
           steps {
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
                 bat 'docker login -u dhivyadhub -p %DOCKERHUB_CREDENTIALS_PSW%'
-                bat 'docker tag pythontest dhivyadhub/pydocker1:%BUILD_NUMBER%' 
+                bat 'docker push dhivyadhub/pydocker1:%BUILD_NUMBER%'
                }
            }
          }    
-       stage('Push the image to DockerHub') {
-
-            steps {
-                bat 'docker push dhivyadhub/pydocker1:%BUILD_NUMBER%'
-            }       
-         }
+      
      stage('Run Docker container on remote hosts') {
              
             steps {
