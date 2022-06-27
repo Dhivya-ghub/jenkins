@@ -16,9 +16,9 @@ pipeline {
         stage('Docker Build and Tag') {
            steps {
               
-                bat 'docker build -t pythontest:%BUILD_NUMBER% .' 
+                bat 'docker build -t pythontest:latest .' 
                   //bat 'docker tag pythontest dhivyadhub/pydocker1:latest'
-                  //bat 'docker tag pythontest dhivyadhub/pydocker1:%BUILD_NUMBER%'
+                  bat 'docker tag pythontest dhivyadhub/pydocker1:%BUILD_NUMBER%'
                
             }  
          }
@@ -28,7 +28,7 @@ pipeline {
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
                 bat 'docker login -u dhivyadhub -p %DOCKERHUB_CREDENTIALS_PSW%'
                 //bat 'docker tag pythontest dhivyadhub/pydocker1:latest'
-                //bat 'docker tag pythontest dhivyadhub/pydocker1:%BUILD_NUMBER%' 
+                bat 'docker tag pythontest dhivyadhub/pydocker1:%BUILD_NUMBER%' 
                }
            }
          }    
