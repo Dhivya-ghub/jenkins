@@ -31,8 +31,8 @@ pipeline {
           bat 'docker tag pythontest dhivyadhub/pydocker1:%BUILD_NUMBER%' 
         }
                   
-         }
-     }
+          }
+       }
     }
 }    
     
