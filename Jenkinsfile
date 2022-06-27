@@ -15,8 +15,7 @@ pipeline {
         stage('Docker Build and Tag') {
            steps {
               
-                bat 'docker build -t pythontest .' 
-                  bat 'docker tag pythontest dhivyadhub/pydocker1:%BUILD_NUMBER%'
+                bat "docker build -t dhivyadhub/pydocker1:%BUILD_NUMBER% ." 
                
             }  
          }
