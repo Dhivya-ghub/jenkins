@@ -25,12 +25,12 @@ pipeline {
      
        stage('Publish image to Docker Hub') {
           steps {
-             withDockerRegistry(string([ credentialsId: "dockerhub", variable: 'DOCKERHUB_CREDENTIALS_PSW' ]) {
+            withCredentials([usernamePassword(credentialsId: 'Docker-Hub', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
                 bat 'docker login -u dhivyadhub -p %DOCKERHUB_CREDENTIALS_PSW%'
                 bat 'docker tag pythontest dhivyadhub/pydocker1:latest'
                 bat 'docker tag pythontest dhivyadhub/pydocker1:%BUILD_NUMBER%' 
                }
-            } 
+           } 
                   
          }
     }
