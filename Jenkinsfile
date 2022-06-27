@@ -30,7 +30,8 @@ pipeline {
                 bat 'docker tag pythontest dhivyadhub/pydocker1:latest'
                 bat 'docker tag pythontest dhivyadhub/pydocker1:%BUILD_NUMBER%' 
                }
-           } 
+           }
+         }    
        stage('Push') {
 
             steps {
