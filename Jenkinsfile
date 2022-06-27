@@ -23,7 +23,7 @@ pipeline {
             }  
          }
      
-       stage('Publish image to Docker Hub') {
+       stage('DockerHub login') {
           steps {
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
                 bat 'docker login -u dhivyadhub -p %DOCKERHUB_CREDENTIALS_PSW%'
@@ -32,7 +32,7 @@ pipeline {
                }
            }
          }    
-       stage('Push') {
+       stage('Push the image to DockerHub') {
 
             steps {
                 bat 'docker push dhivyadhub/pydocker1:%BUILD_NUMBER%'
