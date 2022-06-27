@@ -38,8 +38,11 @@ pipeline {
                 bat 'docker push dhivyadhub/pydocker1:%BUILD_NUMBER%'
             }       
          }
-    }
-}    
-    
-   
+     stage('Run Docker container on remote hosts') {
+             
+            steps {
+                bat "docker run -idt -p 5001:5000 dhivyadhub/pydocker1:%BUILD_NUMBER"
  
+            }
+        }
+}    
