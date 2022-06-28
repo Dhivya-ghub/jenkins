@@ -18,7 +18,7 @@ pipeline {
          }
          stage('Delete the unwanted Docker container') {
            steps {
-               bat 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+               bat 'docker rm -f $(docker ps -aq)'
            }
          }
         stage('DockerHub login and push the docker image') {
