@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        registry = "dhivyadhub/pydocker1"    
+    }
     stages {
         stage('git clone') {
             steps {
@@ -11,7 +14,7 @@ pipeline {
         stage('Docker Build and Tag') {
            steps {
               
-                bat "docker build -t dhivyadhub/pydocker1:%BUILD_NUMBER% ." 
+                bat "docker build -t %registry%:%BUILD_NUMBER% ." 
                
             }  
          }
@@ -20,7 +23,7 @@ pipeline {
           steps {
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
                 bat 'docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%'
-                bat 'docker push dhivyadhub/pydocker1:%BUILD_NUMBER%'
+                bat 'docker push %registry%:%BUILD_NUMBER%'
                }
            }
          }    
