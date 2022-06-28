@@ -18,22 +18,17 @@ pipeline {
                
             }  
          }
-     
-       stage('DockerHub login and push the docker image') {
+        stage('DockerHub login and push the docker image') {
           steps {
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
-                bat 'docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%'
-                bat 'docker push %registry%:%BUILD_NUMBER%'
+                bat 'docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%' | 'docker push %registry%:%BUILD_NUMBER%'
                }
            }
          }    
-      
-     stage('Run Docker container') {
-             
-            steps {
+        stage('Run Docker container') {
+          steps {
                 bat "docker run -d --name pythoncon%BUILD_NUMBER% -p 50%BUILD_NUMBER%:5000 dhivyadhub/pydocker1:%BUILD_NUMBER%"
- 
-            }
+          }
         }
     }   
 }
