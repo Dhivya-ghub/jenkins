@@ -13,10 +13,8 @@ pipeline {
         }
         stage('Docker Build and Tag') {
            steps {
-              
-                bat "docker build -t %registry%:%BUILD_NUMBER% ." 
-               
-            }  
+                 bat "docker build -t %registry%:%BUILD_NUMBER% ." 
+           }  
          }
         stage('DockerHub login and push the docker image') {
           steps {
@@ -27,7 +25,7 @@ pipeline {
          }    
         stage('Run Docker container') {
           steps {
-                bat "docker run -d --name pythoncon%BUILD_NUMBER% -p 50%BUILD_NUMBER%:5000 dhivyadhub/pydocker1:%BUILD_NUMBER%"
+                bat "docker run -d --name pythoncon%BUILD_NUMBER% -p 50%BUILD_NUMBER%:5000 --restart unless-stopped dhivyadhub/pydocker1:%BUILD_NUMBER%"
           }
         }
     }   
