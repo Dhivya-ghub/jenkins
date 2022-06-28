@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    environment {
-        registry = "dhivyadhub/pydocker1" 
-        registryCredential = 'dockerHub'    
-    }
     stages {
         stage('git clone') {
             steps {
@@ -32,7 +28,7 @@ pipeline {
      stage('Run Docker container') {
              
             steps {
-                bat "docker run -idt --name pythoncon%BUILD_NUMBER% -p 50%BUILD_NUMBER%:5000 dhivyadhub/pydocker1:%BUILD_NUMBER%"
+                bat "docker run -d --name pythoncon%BUILD_NUMBER% -p 50%BUILD_NUMBER%:5000 dhivyadhub/pydocker1:%BUILD_NUMBER%"
  
             }
         }
