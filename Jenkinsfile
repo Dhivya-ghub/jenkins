@@ -18,7 +18,7 @@ pipeline {
          }
          stage('Delete the unwanted Docker container') {
            steps {
-               bat 'FOR /f "tokens=*" %i IN ('docker ps -a -q') DO docker rm %i'
+                 FOR /f "tokens=*" %i IN ('docker ps -a -q') DO docker rm %i'
            }
          }
         stage('DockerHub login and push the docker image') {
