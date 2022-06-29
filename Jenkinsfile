@@ -22,7 +22,7 @@ pipeline {
         }    
         stage('Run Docker container') {
           steps {
-                bat "docker run -d --name pythoncontainer%BUILD_NUMBER% -p 500%BUILD_NUMBER%:5000 dhivyadhub/pydocker1:%BUILD_NUMBER%"
+                bat "docker run -d --name pythoncon%BUILD_NUMBER% -p 50%BUILD_NUMBER%:5000 dhivyadhub/pydocker1:%BUILD_NUMBER%"
             }
         }
     }            
