@@ -16,13 +16,6 @@ pipeline {
                  bat "docker build -t %registry%:%BUILD_NUMBER% ." 
            }  
          }
-         stage('Delete the unwanted Docker container') {
-           steps {
-                 bat '''
-                    FOR /f "tokens=*" %%i IN ('docker ps -aq') DO docker rm -f %%i
-                 '''
-           }
-         }
         stage('DockerHub login and push the docker image') {
           steps {
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
