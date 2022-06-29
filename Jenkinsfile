@@ -19,10 +19,7 @@ pipeline {
          stage('Delete the unwanted Docker container') {
            steps {
                  bat '''
-                    FOR /F "tokens=*" %%F IN (`docker ps -a -q`) DO (
-                      SET var=%%F
-                    )
-                   docker rm -f %var% 
+                    FOR /f "tokens=*" %%i IN ('docker ps -aq') DO docker rm %%i
                  '''
            }
          }
