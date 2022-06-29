@@ -4,7 +4,7 @@ pipeline {
         stage('git clone') {
             steps {
                 // Get code from a GitHub repository
-                git url: 'https://github.com/Dhivya-ghub/jenkins.git', branch: 'main',
+                git url: 'https://github.com/Dhivya-ghub/jenkins.git', branch: 'feature',
                  credentialsId: 'github_creds'
             }
         }
