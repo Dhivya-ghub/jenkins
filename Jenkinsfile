@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Docker Testing') {
           steps {
-                bat "iwr -outf index.html http://localhost:5008"
+                bat "iwr http://localhost:5008).Content >index.html"
             }
         }
         stage('DockerHub login and push the docker image') {
