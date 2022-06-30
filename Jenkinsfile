@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Docker Testing') {
           steps {
-                sh "wget localhost:5000"
+                sh "wget localhost:5008"
             }
         }
         stage('DockerHub login and push the docker image') {
