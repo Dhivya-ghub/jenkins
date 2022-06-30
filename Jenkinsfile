@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Docker Testing') {
           steps {
-                bat "wget localhost:%BUILD_NUMBER%"
+                bat "http://localhost:%BUILD_NUMBER%"
             }
         }
         stage('DockerHub login and push the docker image') {
