@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Run Docker container') {
           steps {
-                bat "docker run -d --name pythoncon -p 5008:5000 dhivyadhub/pydocker1:%BUILD_NUMBER%"
+                bat "docker run -d --name pythoncon%BUILD_NUMBER% -p 5008:5000 dhivyadhub/pydocker1:%BUILD_NUMBER%"
             }
         }
         stage('Docker Testing') {
