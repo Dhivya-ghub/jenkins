@@ -3,12 +3,6 @@ pipeline {
     environment {
         docker_repo = "dhivyadhub/pydocker1"
     }    
-    stages {
-        stage ('Cleaning Local Images and Containers') {
-           steps {
-               sh 'docker stop $(docker ps -a -q) || true && docker rm $(docker ps -a -q) || true && docker rmi -f $(docker images -a -q) || true'
-           }
-        }
         stage('Docker Build and Tag') {
            steps {
                sh "docker build -t dhivyadhub/pydocker1:%BUILD_NUMBER% ." 
