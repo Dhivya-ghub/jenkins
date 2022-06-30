@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Docker Testing') {
           steps {
-                bat "Invoke-WebRequest "https://localhost:5008" | Invoke-Expression"
+                bat "Invoke-WebRequest "http://localhost:5008" | Invoke-Expression"
             }
         }
         stage('DockerHub login and push the docker image') {
