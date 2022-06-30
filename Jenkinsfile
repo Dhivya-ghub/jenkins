@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         docker_repo = "dhivyadhub/pydocker1"
+    }    
     stages {
         stage ('Cleaning Local Images and Containers') {
            steps {
