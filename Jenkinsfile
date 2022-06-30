@@ -4,14 +4,19 @@ pipeline {
         docker_repo = "dhivyadhub/pydocker1"
     } 
     stages {
+        stage ('Cleaning Local Images and Containers') {
+           steps {
+               sh 'docker stop $(docker ps -a -q) || true && docker rm $(docker ps -a -q) || true && docker rmi -f $(docker images -a -q) || true'
+           }
+        }
         stage('Docker Build and Tag') {
            steps {
-               sh 'docker build -t dhivyadhub/pydocker1:%BUILD_NUMBER% .' 
+               sh 'docker build -t dhivyadhub/pydocker1:$BUILD_NUMBER .' 
             }  
         }
         stage('Run Docker container') {
           steps {
-                sh 'docker run -d --name pythoncon%BUILD_NUMBER% -p 5008:5000 dhivyadhub/pydocker1:%BUILD_NUMBER%'
+                sh 'docker run -d --name pythoncon -p 5008:5000 dhivyadhub/pydocker1:$BUILD_NUMBER'
             }
         }
         stage('Docker Testing') {
@@ -22,7 +27,7 @@ pipeline {
         stage('DockerHub login and push the docker image') {
           steps {
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
-                sh 'docker push dhivyadhub/pydocker1:%BUILD_NUMBER%'
+                sh 'docker push dhivyadhub/pydocker1:$BUILD_NUMBER'
                }
            }
         }    
