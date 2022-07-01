@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent (
+        label 'slave'
+    )    
     environment {
         docker_repo = "dhivyadhub/pydocker1"
     } 
