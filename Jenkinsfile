@@ -35,9 +35,7 @@ pipeline {
         }
         stage('DockerHub login and push the docker image') {
           steps {
-            withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
-                sh 'docker push $docker_repo:$BUILD_NUMBER'
-               }
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin && docker push $docker_repo:$BUILD_NUMBER'
            }
         }    
     }            
