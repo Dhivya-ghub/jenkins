@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Run Docker container') {
           steps {
-                sh 'docker run -d --name pythoncon -p 5008:5000 $docker_repo:$BUILD_NUMBER'
+                sh 'docker run -d --name pythoncon -p 5009:5000 $docker_repo:$BUILD_NUMBER'
             }
         }
         stage('Docker Testing') {
