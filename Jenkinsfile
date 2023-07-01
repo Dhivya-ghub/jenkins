@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Docker Testing') {
           steps {
-                sh 'wget 34.216.75.79:5008'
+                sh 'wget 34.208.96.179:5008'
             }
         }
         stage('DockerHub login and push the docker image') {
