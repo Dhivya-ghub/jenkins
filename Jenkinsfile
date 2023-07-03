@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         docker_repo = "dhivyadhub/pydocker1"
+        DOCKERHUB_CREDENTIALS = credentials('dockerHub')
     } 
     stages {
         stage ('Cleaning Local Images and Containers') {
@@ -16,17 +17,17 @@ pipeline {
         }
         stage('Run Docker container') {
           steps {
-                sh 'docker run -d --name pythoncon -p 5009:5000 $docker_repo:$BUILD_NUMBER'
+                sh 'docker run -d --name pythoncon -p 5008:5000 $docker_repo:$BUILD_NUMBER'
             }
         }
         stage('Docker Testing') {
           steps {
-                sh 'wget 54.186.73.49:5009'
+                sh 'wget 54.186.73.49:5008'
             }
         }
         stage('DockerHub login and push the docker image') {
           steps {
-            withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh 'docker push $docker_repo:$BUILD_NUMBER'
                }
            }
