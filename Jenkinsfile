@@ -25,7 +25,7 @@ pipeline {
                 sh 'wget 54.186.73.49:5008'
             }
         }
-        stage('DockerHub login and push the docker image') {
+        stage('DockerHub login') {
           steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
               
