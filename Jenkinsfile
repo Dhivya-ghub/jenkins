@@ -28,9 +28,14 @@ pipeline {
         stage('DockerHub login and push the docker image') {
           steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push $docker_repo:$BUILD_NUMBER'
+              
                }
            }
+        }
+        stage('Run Docker push') {
+          steps {
+                sh 'docker push $docker_repo:$BUILD_NUMBER'
+          }
         }    
-    }            
+    }
 }
