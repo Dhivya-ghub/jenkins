@@ -31,11 +31,12 @@ pipeline {
               
                }
            }
-        }
+        
         stage('Run Docker push') {
           steps {
                 sh 'docker push $docker_repo:$BUILD_NUMBER'
-          }
-        }    
+                }
+           }    
     }
+}    
 
