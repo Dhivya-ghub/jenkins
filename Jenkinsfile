@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Docker Testing') {
           steps {
-                sh 'wget 54.186.73.49:5008'
+                sh 'wget 35.92.234.110:5008'
             }
         }
         stage('DockerHub login') {
